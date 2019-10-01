@@ -49,6 +49,9 @@ flutter:
     - assets/images/bgtree.jpg
     - assets/images/login.jpg
     - assets/images/logo-checkair.png
+    - assets/images/green.jpg
+    - assets/images/red.jpg
+    - assets/images/yellow.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
