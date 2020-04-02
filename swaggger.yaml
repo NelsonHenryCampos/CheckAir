@@ -1,0 +1,152 @@
+
+openapi: 2.0.0
+info:
+  title: OpenWeather API
+  version: 1.0.0
+
+servers:
+  - url: http://api.openweathermap.org/data/2.5
+    description: The main api server
+    
+paths:
+  /weather:
+    get:
+      summary: Get the weather by coordinates
+      parameters:
+        - name: units
+          in: query
+          required: true
+          description: Defines the metric units.
+          schema:
+            type: string
+            enum: 
+              - metric
+              
+        - name: lat
+          in: query
+          required: true
+          description: Define the latitude of location
+          schema:
+            type: integer
+            format: int64
+            
+        - name: lon
+          in: query
+          required: true
+          description: Define the longitude of location.
+          schema:
+            type: integer
+            format: int64
+            
+        - name: appid
+          in: query
+          required: true
+          description: User Api key.
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/WeatherGetResponse'
+        '401':
+          description: Invalid API key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cod:
+                    type: string
+                  message:
+                    type: string
+        '404':
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+          
+components:
+  schemas:
+    WeatherGetResponse:
+      type: object
+      properties:
+          base:
+            type: string
+          main:
+            type: object
+            properties:
+              temp:
+                type: integer
+              feels_like:
+                type: integer
+              temp_min:
+                type: integer
+              temp_max:
+                type: integer
+              pressure:
+                type: integer
+              humidity:
+                type: integer
+          visibility:
+            type: integer
+          id:
+            type: integer
+          cod:
+            type: integer
+          weather:
+            type: array
+            items:
+              type: object
+              properties:
+                icon:
+                  type: string
+                id:
+                  type: integer
+                main:
+                  type: string
+                description:
+                  type: string
+          wind:
+            type: object
+            properties:
+                speed:
+                  type: integer
+                deg:
+                  type: integer
+          clouds:
+            type: object
+            properties:
+              all:
+                type: integer
+          dt:
+            type: integer
+          sys:
+            type: object
+            properties:
+              id:
+                type: integer
+              message:
+                type: integer
+              country:
+                type: string
+              sunrise:
+                type: integer
+              sunset:
+                type: integer
+              type:
+                type: integer
+              timezone:
+               type: integer
+              name:
+               type: string
+          coord:
+            type: object
+            properties:
+              lon:
+                 type: integer
+              lat:
+                type: integer
